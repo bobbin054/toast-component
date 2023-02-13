@@ -2,6 +2,7 @@ import React from "react";
 
 import Button from "../Button";
 import Toast from "../Toast";
+import ToastShelf from "../ToastShelf";
 
 import styles from "./ToastPlayground.module.css";
 
@@ -11,6 +12,12 @@ function ToastPlayground() {
   const [message, setMessage] = React.useState("");
   const [variant, setVariant] = React.useState("notice");
   const [isShown, setIsShown] = React.useState(false);
+  const [toasts, setToasts] = React.useState([]);
+
+  const addToast = () => {
+    setToasts([...toasts, { message, variant }]);
+  };
+  
   return (
     <div className={styles.wrapper}>
       <header>
@@ -18,7 +25,8 @@ function ToastPlayground() {
         <h1>Toast Playground</h1>
       </header>
 
-      <Toast variant={variant} isShown={isShown} setIsShown={setIsShown}> {message} </Toast>
+       
+      <ToastShelf toasts={toasts}> {message}</ToastShelf>
 
       <div className={styles.controlsWrapper}>
         <div className={styles.row}>
@@ -61,7 +69,7 @@ function ToastPlayground() {
         <div className={styles.row}>
           <div className={styles.label} />
           <div className={`${styles.inputWrapper} ${styles.radioWrapper}`}>
-            <Button onClick={e =>setIsShown(true)}>Pop Toast!</Button>
+            <Button onClick={() =>addToast()}>Pop Toast!</Button>
           </div>
         </div>
       </div>
